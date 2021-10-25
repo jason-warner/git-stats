@@ -23,6 +23,7 @@ function App() {
     return {
       headers: {
         ...headers,
+        //only has public repo access... will use local storage soon
         authorization: `Bearer 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`,
       }
     }
