@@ -23,7 +23,7 @@ function App() {
     return {
       headers: {
         ...headers,
-        authorization: `Bearer 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`,
+        authorization: `Bearer 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`,
       }
     }
   });
@@ -43,7 +43,8 @@ function App() {
         }
       `
     })
-    .then((result) => console.log("GQL: ", result))
+    .then((result) => console.log("GQL: ", result.data.viewer.login))
+    .catch((err) => console.log("Fetch Error: ", err));
 
   return (
     <div className="App">
