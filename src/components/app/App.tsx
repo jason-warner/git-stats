@@ -1,38 +1,10 @@
 import React from 'react';
 import './App.css';
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  useQuery,
-  gql,
-  createHttpLink,
-  HttpLink,
-} from "@apollo/client";
-import { setContext } from '@apollo/client/link/context';
-
-function App() {
-  const link = createHttpLink({
-    uri: 'https://api.github.com/graphql'
-  })
-
-  const authLink = setContext((_, { headers }) => {
-    // get the authentication token from local storage if it exists
-    // const token = localStorage.getItem('token');
-    // return the headers to the context so httpLink can read them
-    return {
-      headers: {
-        ...headers,
-        //only has public repo access... will use local storage soon
-        authorization: `Bearer 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`,
-      }
-    }
-  });
-
-  const client = new ApolloClient({
-    link: authLink.concat(link),
-    cache: new InMemoryCache()
-  });
+import { gql } from "@apollo/client";
+import Header from '../header/header';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { client } from '../../common/apollo-client';
+const App: React.FC = () => {
 
   client
     .query({
@@ -49,9 +21,9 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>Git Stats</h1>
-      </header>
+      <Router>
+        <Header />
+      </Router>
       <main>
 
       </main>
