@@ -1,23 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
-import { gql } from "@apollo/client";
+// import { gql } from "@apollo/client";
 import Header from '../header/header';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { client } from '../../common/apollo-client';
+import { getViewer } from '../../hooks/getViewer';
+import { GET_VIEWER } from '../../hooks/getViewer';
+import { resultKeyNameFromField } from '@apollo/client/utilities';
 const App: React.FC = () => {
+  const [viewer, updateViewer] = useState('null');
 
-  client
-    .query({
-      query: gql`
-        query { 
-          viewer { 
-            login
-          }
-        }
-      `
-    })
-    .then((result) => console.log("GQL: ", result.data.viewer.login))
-    .catch((err) => console.log("Fetch Error: ", err));
+
+  useEffect(() => {
+    const viewer:string = `${getViewer()}`
+    updateViewer(viewer)
+  }, [])
+
 
   return (
     <div className="App">
@@ -25,7 +22,7 @@ const App: React.FC = () => {
         <Header />
       </Router>
       <main>
-
+        <h1> {viewer} </h1>
       </main>
     </div>
   );
